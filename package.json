@@ -17,15 +17,32 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration:create": "typeorm migration:create -n hb-init --config ormconfig.js",
+    "migration:run": "typeorm migration:run"
   },
   "dependencies": {
     "@nestjs/common": "^6.10.14",
     "@nestjs/core": "^6.10.14",
+    "@nestjs/jwt": "^7.0.0",
+    "@nestjs/passport": "^6.2.0",
     "@nestjs/platform-express": "^6.10.14",
+    "@nestjs/swagger": "^4.5.1",
+    "@nestjs/typeorm": "^6.3.3",
+    "@types/dotenv": "^8.2.0",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.11.0",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.18.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "swagger-ui-express": "^4.1.4",
+    "typeorm": "^0.2.24"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.13.2",
