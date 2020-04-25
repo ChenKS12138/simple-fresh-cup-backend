@@ -18,6 +18,12 @@ import { ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiOkResponse({ description: '成功获取通知' })
+  @Get('getNotice')
+  getNotice() {
+    return this.userService.getNotice();
+  }
+
   @ApiOkResponse({ description: '成功获取问题' })
   @Get('getQuestion')
   getQuestion() {

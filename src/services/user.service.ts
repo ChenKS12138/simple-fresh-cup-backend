@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { success, exception } from 'src/utils/result';
 import { md5 } from 'src/utils/crypto';
+import { Notice } from 'src/entities/notice.entity';
 
 @Injectable()
 export class UserService {
@@ -16,7 +17,13 @@ export class UserService {
     private readonly questionRepository: Repository<Question>,
     @InjectRepository(Answer)
     private readonly answerRepository: Repository<Answer>,
+    @InjectRepository(Notice)
+    private readonly noticeReposiotry: Repository<Notice>,
   ) {}
+  async getNotice() {
+    const notices = await this.noticeReposiotry.find();
+    return success({ notices });
+  }
   async getQuestion() {
     const questions = await this.questionRepository.find();
     return success({ questions });
