@@ -25,7 +25,9 @@ export class UserService {
     return success({ notices });
   }
   async getQuestion() {
-    const questions = await this.questionRepository.find();
+    const questions = await this.questionRepository.find({
+      where: { hidden: false },
+    });
     return success({ questions });
   }
   async getQuestionAnswer(userId: number) {
@@ -35,6 +37,7 @@ export class UserService {
     if (!user) return exception.PARAMS_INVALID;
     const answer = await this.answerRepository.find({
       where: { user },
+      relations: ['question'],
     });
     return success({ answer });
   }
@@ -42,7 +45,7 @@ export class UserService {
     const { content, questionId } = answerQuestionDto;
 
     const targetQuestion = await this.questionRepository.findOne({
-      where: { id: questionId },
+      where: { id: questionId, hidden: false },
     });
     if (!targetQuestion) return exception.PARAMS_INVALID;
 

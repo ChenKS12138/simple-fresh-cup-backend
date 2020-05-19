@@ -20,6 +20,9 @@ export class Question extends BaseEntity {
   @Column()
   content: string;
 
+  @Column({ default: false })
+  hidden: boolean;
+
   @OneToMany(
     type => Answer,
     answer => answer.question,

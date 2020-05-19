@@ -26,13 +26,14 @@ export class AdminService {
     const question = new Question();
     question.content = content;
     question.title = title;
+    question.hidden = false;
     await this.questionRepository.save(question);
     return success(true);
   }
   async editQuestion(editQuestionDto: EditQuestionDto) {
     const { content, id, title } = editQuestionDto;
     const targetQuestion = await this.questionRepository.findOne({
-      where: { id },
+      where: { id, hidden: false },
     });
     if (!targetQuestion) return exception.PARAMS_INVALID;
     targetQuestion.content = content;
@@ -43,10 +44,11 @@ export class AdminService {
   async deleteQuesion(deleteQuestionDto: DeleteQuestionDto) {
     const { id } = deleteQuestionDto;
     const targetQuestion = await this.questionRepository.findOne({
-      where: { id },
+      where: { id, hidden: false },
     });
     if (!targetQuestion) return exception.PARAMS_INVALID;
-    await this.questionRepository.delete({ id });
+    targetQuestion.hidden = true;
+    await this.questionRepository.save(targetQuestion);
     return success(true);
   }
   async addNotice(addNoticeDto: AddNoticeDto) {
