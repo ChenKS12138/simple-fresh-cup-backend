@@ -46,7 +46,7 @@ export class AdminService {
       where: { id },
     });
     if (!targetQuestion) return exception.PARAMS_INVALID;
-    await this.questionRepository.delete(id);
+    await this.questionRepository.delete({ id });
     return success(true);
   }
   async addNotice(addNoticeDto: AddNoticeDto) {

@@ -29,12 +29,14 @@ export class UserService {
     return success({ questions });
   }
   async getQuestionAnswer(userId: number) {
-    const user = await this.questionRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { id: userId },
     });
     if (!user) return exception.PARAMS_INVALID;
-    const answers = user.answers;
-    return success({ answers });
+    const answer = await this.answerRepository.find({
+      where: { user },
+    });
+    return success({ answer });
   }
   async answerQuestion(answerQuestionDto: AnswerQuesionDto, userId: number) {
     const { content, questionId } = answerQuestionDto;
